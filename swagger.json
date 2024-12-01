@@ -1,0 +1,156 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Persona API",
+        "version": "1.0.0",
+        "description": "API REST para gestionar los videojuegos de la saga Persona."
+    },
+    "servers": [
+        {
+            "url": "https://personaapi-obss.onrender.com/api",
+            "description": "Servidor en Render"
+        },
+        {
+            "url": "http://localhost:3000/api",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/games": {
+            "get": {
+                "summary": "Obtener todos los juegos",
+                "responses": {
+                    "200": {
+                        "description": "Lista de juegos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Game"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crear un nuevo juego",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Game"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Juego creado con éxito"
+                    }
+                }
+            }
+        },
+        "/games/{id}": {
+            "get": {
+                "summary": "Obtener un juego por ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Juego encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Juego no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar un juego",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Game"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Juego actualizado con éxito"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar un juego",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Juego eliminado con éxito"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Game": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "release_year": {
+                        "type": "integer"
+                    },
+                    "platform": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
