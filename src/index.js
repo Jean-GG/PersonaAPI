@@ -1,11 +1,14 @@
-import express from 'express';
-import {PORT} from "./config.js";
-import userRoutes from "./routes/users.routes.js";
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+
+const gameRoutes = require("./src/routes/gameRoutes");
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
-app.use(userRoutes);
+app.use("/api/games", gameRoutes);
 
-app.listen(PORT);
-console.log('server on port' , PORT);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
