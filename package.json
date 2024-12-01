@@ -4,7 +4,7 @@
   "description": "API REST para gestionar datos de los videojuegos de la saga Persona.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node index.js",
     "dev": "node --env-file .env --watch src/index.js"
   },
   "keywords": [],
